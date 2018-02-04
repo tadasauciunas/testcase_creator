@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ParsedOriginalFile {
 
-    private ArrayList<String> usages;
+    private ArrayList<String> usages = new ArrayList<>();
     private Map<String, String> dependencies = new LinkedHashMap<>();
     private String originalNamespace, testFileClassDefinition, originalClassName;
 
@@ -13,10 +13,6 @@ public class ParsedOriginalFile {
     }
 
     public void addUsage(String usage) {
-        if (this.usages == null) {
-            this.usages = new ArrayList<>();
-        }
-
         this.usages.add(usage);
     }
 

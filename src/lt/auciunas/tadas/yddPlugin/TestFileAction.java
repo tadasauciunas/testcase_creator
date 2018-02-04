@@ -37,6 +37,7 @@ public class TestFileAction extends AnAction {
                 ParsedTestFile parsedTestFile = testFileParser.parseTestFileContents();
 
                 TestFileFiller testFileFiller = new TestFileFiller(createdFile, parsedTestFile);
+                testFileFiller.clearTestCaseSetUp();
                 testFileFiller.fillFile();
 
                 new OpenFileDescriptor(project, createdFile).navigate(true);

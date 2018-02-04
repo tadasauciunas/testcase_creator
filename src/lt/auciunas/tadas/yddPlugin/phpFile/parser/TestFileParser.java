@@ -36,7 +36,7 @@ public class TestFileParser {
     }
 
     private void parseDependencies() {
-        String annotation, definition, init, originalClassInitialization;
+        String annotation, definition, init;
         Integer currentDependencyIndex = 0;
 
         for (Map.Entry<String, String> entry : this.parsedOriginalFile.getDependencies().entrySet()) {
@@ -46,7 +46,7 @@ public class TestFileParser {
             String value = decapitalize(entry.getValue());
 
             annotation = "/** @var " + key + "|\\PHPUnit_Framework_MockObject_MockObject */\n";
-            definition = "    private " + value + ";\n\n";
+            definition = "\tprivate " + value + ";\n\n";
             this.parsedTestFile.addDependencyDefinition(annotation + definition);
 
             value = value.substring(1, value.length());
@@ -84,7 +84,7 @@ public class TestFileParser {
         String originalClassDefinition, originalClassName = parsedOriginalFile.getOriginalClassName();
 
         originalClassDefinition = "/** @var " + originalClassName + "*/\n";
-        originalClassDefinition += "    private $" + decapitalize(originalClassName) + ";\n\n";
+        originalClassDefinition += "\tprivate $" + decapitalize(originalClassName) + ";\n\n";
 
         this.parsedTestFile.setOriginalClassDefinition(originalClassDefinition);
     }
