@@ -71,20 +71,22 @@ public class TestFileFiller {
 
         String testFileContents = content.toString() + this.testFileContentsAfterSetUp;
         if (this.testFileContentsAfterSetUp.length() == 0) {
-            testFileContents += "}\n";
+            testFileContents += "}";
         }
+
+        testFileContents += "\n";
 
         this.createdFile.setBinaryContent(testFileContents.getBytes());
     }
 
     private List<String> getOriginalDependenciesMerged() {
-        List<String> combined = new ArrayList<>();
-        combined.addAll(this.parsedTestFile.getUsages());
-        combined.addAll(this.clearedTestFile.getUsages());
+        List<String> combined = new ArrayList<>(this.clearedTestFile.getUsages());
 
-        Set<String> hs = new HashSet<>(combined);
-        combined.clear();
-        combined.addAll(hs);
+        for (String s : this.parsedTestFile.getUsages()) {
+            if (!combined.contains(s)) {
+                combined.add(s);
+            }
+        }
 
         return combined;
     }
