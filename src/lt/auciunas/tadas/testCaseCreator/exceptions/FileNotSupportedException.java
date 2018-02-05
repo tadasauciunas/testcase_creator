@@ -1,4 +1,4 @@
-package lt.auciunas.tadas.yddPlugin.exceptions;
+package lt.auciunas.tadas.testCaseCreator.exceptions;
 
 public class FileNotSupportedException extends Throwable {
 

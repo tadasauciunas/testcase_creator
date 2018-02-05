@@ -1,7 +1,7 @@
-package lt.auciunas.tadas.yddPlugin.phpFile.validator;
+package lt.auciunas.tadas.testCaseCreator.phpFile.validator;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import lt.auciunas.tadas.yddPlugin.exceptions.FileNotSupportedException;
+import lt.auciunas.tadas.testCaseCreator.exceptions.FileNotSupportedException;
 
 import java.io.FileNotFoundException;
 

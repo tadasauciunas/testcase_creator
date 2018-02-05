@@ -1,12 +1,16 @@
-package lt.auciunas.tadas.yddPlugin.phpFile.entity;
+package lt.auciunas.tadas.testCaseCreator.phpFile.mapper;
 
 import java.util.*;
 
+/**
+ * Mapper/bucket object necessary for transferring data which was parsed from the original file
+ * and will be used for creating the test file.
+ */
 public class ParsedOriginalFile {
 
     private ArrayList<String> usages = new ArrayList<>();
-    private Map<String, String> dependencies = new LinkedHashMap<>();
-    private String originalNamespace, testFileClassDefinition, originalClassName;
+    private Map<String, List<String>> dependencies = new LinkedHashMap<>();
+    private String originalNamespace, originalClassName;
 
     public ArrayList<String> getUsages() {
         return usages;
@@ -32,15 +36,7 @@ public class ParsedOriginalFile {
         this.originalClassName = originalClassName;
     }
 
-    public String getTestFileClassDefinition() {
-        return testFileClassDefinition;
-    }
-
-    public void setTestFileClassDefinition(String testFileClassDefinition) {
-        this.testFileClassDefinition = testFileClassDefinition;
-    }
-
-    public Map<String, String> getDependencies() {
+    public Map<String, List<String>> getDependencies() {
         if (this.dependencies == null) {
             this.dependencies = new LinkedHashMap<>();
         }
@@ -48,6 +44,15 @@ public class ParsedOriginalFile {
     }
 
     public void addDependency(String key, String value) {
-        this.dependencies.put(key, value);
+        List<String> values = new ArrayList<>();
+
+        if (this.dependencies.get(key) == null) {
+            values.add(value);
+        } else {
+            values.addAll(this.dependencies.get(key));
+            values.add(value);
+        }
+
+        this.dependencies.put(key, values);
     }
 }

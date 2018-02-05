@@ -1,7 +1,7 @@
-package lt.auciunas.tadas.yddPlugin.phpFile;
+package lt.auciunas.tadas.testCaseCreator.phpFile;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import lt.auciunas.tadas.yddPlugin.exceptions.FileNotSupportedException;
+import lt.auciunas.tadas.testCaseCreator.exceptions.FileNotSupportedException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -10,7 +10,6 @@ import java.util.*;
 public class TestFileCreator {
 
     private VirtualFile file;
-    private String testNameSpace;
 
     public TestFileCreator(VirtualFile file) {
         this.file = file;

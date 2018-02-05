@@ -1,13 +1,18 @@
-package lt.auciunas.tadas.yddPlugin.phpFile.parser;
+package lt.auciunas.tadas.testCaseCreator.phpFile.parser;
 
-import lt.auciunas.tadas.yddPlugin.phpFile.entity.ParsedOriginalFile;
-import lt.auciunas.tadas.yddPlugin.phpFile.entity.ParsedTestFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedOriginalFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedTestFile;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class TestFileParser {
+
+    private static final String FIXME_NO_VAR_TYPE = "//FIXME I don't know my type";
+    private static final String FIXME_NO_VAR_VALUE = "//FIXME I don't know my value";
+    private static final String FOUR_SPACE_TAB = "    ";
 
     private ParsedTestFile parsedTestFile;
     private ParsedOriginalFile parsedOriginalFile;
@@ -22,7 +27,6 @@ public class TestFileParser {
         this.parseTestNameSpace();
         this.parseUsages();
         this.parseDependencies();
-        this.parseSetUp();
         this.parseTestClassDefinition();
         this.parseOriginalClassDefinition();
         this.parseOriginalClassInitialization();
@@ -31,44 +35,56 @@ public class TestFileParser {
     }
 
     private void parseTestClassDefinition() {
-        //todo actual parsing of test file class definition belongs in this parser
-        this.parsedTestFile.setTestFileClassDefinition(this.parsedOriginalFile.getTestFileClassDefinition());
+        String testFileClassDefinition = "class " +
+                this.parsedOriginalFile.getOriginalClassName() +
+                "Test extends TestCase\n{\n";
+
+        this.parsedTestFile.setTestFileClassDefinition(testFileClassDefinition);
     }
 
     private void parseDependencies() {
         String annotation, definition, init;
-        Integer currentDependencyIndex = 0;
 
-        for (Map.Entry<String, String> entry : this.parsedOriginalFile.getDependencies().entrySet()) {
-            currentDependencyIndex++;
+        for (Map.Entry<String, List<String>> entries : this.parsedOriginalFile.getDependencies().entrySet()) {
+            String key = entries.getKey();
+            for (String entryValue : entries.getValue()) {
+                String value = decapitalize(entryValue);
 
-            String key = entry.getKey();
-            String value = decapitalize(entry.getValue());
+                if (key == null) {
+                    annotation = "/** @var " + FIXME_NO_VAR_TYPE + " */\n";
+                } else {
+                    annotation = "/** @var " + key + "|\\PHPUnit_Framework_MockObject_MockObject */\n";
+                }
 
-            annotation = "/** @var " + key + "|\\PHPUnit_Framework_MockObject_MockObject */\n";
-            definition = "\tprivate " + value + ";\n\n";
-            this.parsedTestFile.addDependencyDefinition(annotation + definition);
+                definition = FOUR_SPACE_TAB + "private " + value + ";\n\n";
+                this.parsedTestFile.addDependencyDefinition(annotation + definition);
 
-            value = value.substring(1, value.length());
-            init = "$this->" + value + " = $this->getSimpleMock(" + key + "::class);\n";
-            if (this.parsedOriginalFile.getDependencies().size() == currentDependencyIndex) {
-                init += "\n";
+                value = value.substring(1, value.length());
+                if (key == null) {
+                    init = "$this->" + value + " = null; " + FIXME_NO_VAR_VALUE + "\n";
+                } else {
+                    init = "$this->" + value + " = $this->getSimpleMock(" + key + "::class);\n";
+                }
+
+                this.parsedTestFile.addDependencyInitialization(init);
             }
-            this.parsedTestFile.addDependencyInitialization(init);
         }
     }
 
     private void parseOriginalClassInitialization() {
         String originalClassInitialization, originalClassName = parsedOriginalFile.getOriginalClassName();
 
-        originalClassInitialization = "$this->" +
+        originalClassInitialization = "\n" + FOUR_SPACE_TAB + FOUR_SPACE_TAB + "$this->" +
                 decapitalize(originalClassName) +
                 " = new " + originalClassName + "(";
 
-        for (Map.Entry<String, String> entry : this.parsedOriginalFile.getDependencies().entrySet()) {
-            String value = decapitalize(entry.getValue()).substring(1, entry.getValue().length());
-            value = "$this->" + value;
-            originalClassInitialization += value + ", ";
+        for (Map.Entry<String, List<String>> entries : this.parsedOriginalFile.getDependencies().entrySet()) {
+            for (String entryValue : entries.getValue()) {
+
+                String value = decapitalize(entryValue).substring(1, entryValue.length());
+                value = "$this->" + value;
+                originalClassInitialization += value + ", ";
+            }
         }
 
         if (this.parsedOriginalFile.getDependencies().size() > 0) {
@@ -83,13 +99,10 @@ public class TestFileParser {
     private void parseOriginalClassDefinition() {
         String originalClassDefinition, originalClassName = parsedOriginalFile.getOriginalClassName();
 
-        originalClassDefinition = "/** @var " + originalClassName + "*/\n";
-        originalClassDefinition += "\tprivate $" + decapitalize(originalClassName) + ";\n\n";
+        originalClassDefinition = "/** @var " + originalClassName + " */\n";
+        originalClassDefinition += "    private $" + decapitalize(originalClassName) + ";\n\n";
 
         this.parsedTestFile.setOriginalClassDefinition(originalClassDefinition);
-    }
-
-    private void parseSetUp() {
     }
 
     private void parseUsages() {
@@ -115,7 +128,6 @@ public class TestFileParser {
         String originalNamespace = this.parsedOriginalFile.getOriginalNamespace();
 
         String[] contents = originalNamespace.split(Pattern.quote("\\"));
-//        contents[0] = contents[0].substring(0, contents[0].length() - 1);
         contents[0] = contents[0] + "Test";
 
         return String.join("\\", contents);

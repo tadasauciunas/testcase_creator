@@ -1,4 +1,4 @@
-package lt.auciunas.tadas.yddPlugin;
+package lt.auciunas.tadas.testCaseCreator;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -7,14 +7,14 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
-import lt.auciunas.tadas.yddPlugin.exceptions.FileNotSupportedException;
-import lt.auciunas.tadas.yddPlugin.phpFile.TestFileFiller;
-import lt.auciunas.tadas.yddPlugin.phpFile.entity.ParsedTestFile;
-import lt.auciunas.tadas.yddPlugin.phpFile.parser.OriginalFileParser;
-import lt.auciunas.tadas.yddPlugin.phpFile.parser.TestFileParser;
-import lt.auciunas.tadas.yddPlugin.phpFile.validator.FileValidator;
-import lt.auciunas.tadas.yddPlugin.phpFile.entity.ParsedOriginalFile;
-import lt.auciunas.tadas.yddPlugin.phpFile.TestFileCreator;
+import lt.auciunas.tadas.testCaseCreator.exceptions.FileNotSupportedException;
+import lt.auciunas.tadas.testCaseCreator.phpFile.TestFileFiller;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedTestFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.parser.OriginalFileParser;
+import lt.auciunas.tadas.testCaseCreator.phpFile.parser.TestFileParser;
+import lt.auciunas.tadas.testCaseCreator.phpFile.validator.FileValidator;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedOriginalFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.TestFileCreator;
 import org.jetbrains.annotations.NotNull;
 
 public class TestFileAction extends AnAction {
@@ -24,7 +24,9 @@ public class TestFileAction extends AnAction {
         if (project != null) {
             VirtualFile file = event.getData(PlatformDataKeys.VIRTUAL_FILE);
 
-            validateFile(file);
+            if (!isFileValid(file)) {
+                return;
+            }
 
             TestFileCreator phpTestFileCreator = new TestFileCreator(file);
             try {
@@ -49,14 +51,18 @@ public class TestFileAction extends AnAction {
         }
     }
 
-    private void validateFile(VirtualFile file) {
+    private boolean isFileValid(VirtualFile file) {
         FileValidator phpFileValidator = new FileValidator(file);
 
         try {
             phpFileValidator.validateFile();
         } catch (FileNotSupportedException | Exception e) {
             Messages.showMessageDialog(e.getMessage(), "Project", Messages.getInformationIcon());
+
+            return false;
         }
+
+        return true;
     }
 
 }

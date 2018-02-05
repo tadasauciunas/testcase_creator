@@ -1,9 +1,9 @@
 <idea-plugin>
-  <id>lt.auciunas.tadas.yddPlugin</id>
-  <name>ydd plugin</name>
+  <id>lt.auciunas.tadas.testCaseCreator</id>
+  <name>Test case creator</name>
   <version>1.0</version>
 
-  <description>Simple plugin for creating test classes</description>
+  <description>PHPStorm plugin for creating test classes</description>
   <change-notes></change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
@@ -26,7 +26,7 @@
   </extensions>
 
   <actions>
-    <action id="lt.auciunas.tadas.yddPlugin.TestFileAction" class="lt.auciunas.tadas.yddPlugin.TestFileAction"
+    <action id="lt.auciunas.tadas.testCaseCreator.TestFileAction" class="lt.auciunas.tadas.testCaseCreator.TestFileAction"
             text="Create test file" description="Create a test class">
       <keyboard-shortcut keymap="$default" first-keystroke="shift alt Q"/>
       <add-to-group group-id="ToolsMenu" anchor="last"/>

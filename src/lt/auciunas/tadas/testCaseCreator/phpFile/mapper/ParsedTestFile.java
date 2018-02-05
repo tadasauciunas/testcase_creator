@@ -1,7 +1,10 @@
-package lt.auciunas.tadas.yddPlugin.phpFile.entity;
+package lt.auciunas.tadas.testCaseCreator.phpFile.mapper;
 
 import java.util.ArrayList;
 
+/**
+ * Mapper/bucket object for keeping data which will be used to create the actual test file.
+ */
 public class ParsedTestFile {
 
     private ArrayList<String> usages = new ArrayList<>(),
