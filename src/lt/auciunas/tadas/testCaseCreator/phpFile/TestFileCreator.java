@@ -52,11 +52,11 @@ public class TestFileCreator {
     }
 
     private String getDefaultTestDirName(VirtualFile parent) {
-        if (parent.getParent().findChild("test") != null) {
-            return "test";
+        if (parent.getParent().findChild("tests") != null) {
+            return "tests";
         }
 
-        return "tests";
+        return "test";
     }
 
     private boolean isDirectorySrc(VirtualFile parent) {

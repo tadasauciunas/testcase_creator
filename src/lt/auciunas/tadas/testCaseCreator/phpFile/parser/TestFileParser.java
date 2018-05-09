@@ -63,7 +63,7 @@ public class TestFileParser {
                 if (key == null) {
                     init = "$this->" + value + " = null; " + FIXME_NO_VAR_VALUE + "\n";
                 } else {
-                    init = "$this->" + value + " = $this->getSimpleMock(" + key + "::class);\n";
+                    init = "$this->" + value + " = $this->createMock(" + key + "::class);\n";
                 }
 
                 this.parsedTestFile.addDependencyInitialization(init);

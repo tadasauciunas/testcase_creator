@@ -62,7 +62,7 @@ public class TestFileFiller {
         }
         content.append(FOUR_SPACE_TAB + this.parsedTestFile.getOriginalClassDefinition());
 
-        content.append(FOUR_SPACE_TAB + "protected function setUp()\n" + FOUR_SPACE_TAB + "{\n");
+        content.append(FOUR_SPACE_TAB + "protected function setUp(): void\n" + FOUR_SPACE_TAB + "{\n");
         for (String item : this.parsedTestFile.getDependencyInitializations()) {
             content.append(FOUR_SPACE_TAB + FOUR_SPACE_TAB + item);
         }
