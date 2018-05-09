@@ -115,12 +115,7 @@ public class TestFileParser {
     }
 
     private String getTestCaseUsage() {
-        String testNamespace = createTestNamespace();
-
-        String[] contents = testNamespace.split(Pattern.quote("\\"));
-        testNamespace = contents[0].split(" ")[1];
-
-        return "use " + testNamespace + "\\TestCase;";
+        return "use PHPUnit\\Framework\\TestCase;";
     }
 
     @NotNull
