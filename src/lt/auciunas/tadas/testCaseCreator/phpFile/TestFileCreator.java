@@ -1,7 +1,6 @@
 package lt.auciunas.tadas.testCaseCreator.phpFile;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import lt.auciunas.tadas.testCaseCreator.exceptions.FileNotSupportedException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -15,11 +14,11 @@ public class TestFileCreator {
         this.file = file;
     }
 
-    public VirtualFile createTestFile() throws FileNotSupportedException, IOException {
+    public VirtualFile createTestFile() throws IOException {
         return getTestFile();
     }
 
-    private VirtualFile getTestFile() throws IOException, FileNotSupportedException {
+    private VirtualFile getTestFile() throws IOException {
         ArrayList<String> directories = getDirectoriesToTestFile(this.file);
 
         VirtualFile testFileParent = createTestDirectories(directories);
@@ -41,8 +40,6 @@ public class TestFileCreator {
             parent = parent.getParent();
         }
 
-//        directories.remove(directories.size() - 1); //todo this was used earlier. is it ok?
-
         String defaultTestDirName = getDefaultTestDirName(parent);
         directories.add(defaultTestDirName);
 
@@ -60,11 +57,11 @@ public class TestFileCreator {
     }
 
     private boolean isDirectorySrc(VirtualFile parent) {
-        return parent.getPath().substring(parent.getPath().length() - 4, parent.getPath().length()).equals("/src");
+        return parent.getPath().substring(parent.getPath().length() - 4).equals("/src");
     }
 
     private VirtualFile createTestDirectories(ArrayList<String> directories)
-            throws IOException, FileNotSupportedException {
+            throws IOException {
 
         VirtualFile parent = this.file;
         for (int i = 0; i <= directories.size(); i++) {
@@ -84,8 +81,7 @@ public class TestFileCreator {
         int key = 0;
         for (String item : directories) {
             if (key == 1) {
-                item = item + "Test";
-//                this.testNameSpace = item;
+                item += "Test"; //TODO this is probably not needed for PSR-4 classes
             }
 
             if (parent.findChild(item) == null) {

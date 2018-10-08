@@ -2,32 +2,33 @@ package lt.auciunas.tadas.testCaseCreator.phpFile.parser;
 
 import com.intellij.openapi.fileEditor.impl.LoadTextUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedOriginalFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedSourceFile;
 
 public class OriginalFileParser {
     private VirtualFile originalFile;
     private String[] originalFileRows;
-    private ParsedOriginalFile parsedFile;
+    private ParsedSourceFile parsedSourceFile;
 
-    public OriginalFileParser(VirtualFile originalFile) {
-        this.originalFile = originalFile;
+    public OriginalFileParser(VirtualFile sourceFile) {
+        this.originalFile = sourceFile;
     }
 
-    public ParsedOriginalFile parseFile() {
-        parsedFile = new ParsedOriginalFile();
-        Boolean x;
+    public ParsedSourceFile parseFile() {
+        parsedSourceFile = new ParsedSourceFile();
         parseOriginalFileRows();
 
-        for (String item : this.originalFileRows) {
-            x = this.parseNamespace(item) ||
-                    this.parseUsages(item) ||
-                    this.parseClassDefinition(item) ||
-                    this.parseDependencies(item);
+        for (String row : this.originalFileRows) {
+            boolean x = this.parseNamespace(row) ||
+                    this.parseUsages(row) ||
+                    this.parseClassDefinition(row) ||
+                    this.parseDependencies(row);
         }
 
-        this.parsedFile.addUsage(getOriginalClassUsage());
+        this.parsedSourceFile.getImports().addImport(
+                getUsageOfClassInSameNamespace(this.parsedSourceFile.getSourceClassName())
+        );
 
-        return this.parsedFile;
+        return this.parsedSourceFile;
     }
 
     private void parseOriginalFileRows() {
@@ -35,7 +36,7 @@ public class OriginalFileParser {
         this.originalFileRows[0] = "";
 
         int rowNumber = 0, constructorRow = 0;
-        Boolean constructFound = false, multiLineConstructor = false;
+        boolean constructFound = false, multiLineConstructor = false;
 
         for (String item : this.originalFileRows) {
             if (!constructFound && item.contains("__construct")) {
@@ -52,17 +53,15 @@ public class OriginalFileParser {
                     return;
                 }
 
-                if (!multiLineConstructor) {
-                    multiLineConstructor = true;
-                }
+                multiLineConstructor = true;
             }
             rowNumber++;
         }
     }
 
-    private boolean parseNamespace(String item) {
-        if (item.contains("namespace")) {
-            this.parsedFile.setOriginalNamespace(item);
+    private boolean parseNamespace(String row) {
+        if (row.indexOf("namespace") == 0) {
+            this.parsedSourceFile.setSourceNamespace(row);
 
             return true;
         }
@@ -70,9 +69,9 @@ public class OriginalFileParser {
         return false;
     }
 
-    private boolean parseUsages(String item) {
-        if (item.contains("use ") && testFileConstructHasNotBeenDefined()) {
-            this.parsedFile.addUsage(item);
+    private boolean parseUsages(String row) {
+        if (row.indexOf("use ") == 0 && testFileConstructHasNotBeenDefined()) {
+            this.parsedSourceFile.getImports().addImport(row);
 
             return true;
         }
@@ -81,21 +80,20 @@ public class OriginalFileParser {
     }
 
     private boolean testFileConstructHasNotBeenDefined() {
-        return this.parsedFile.getOriginalClassName() == null ||
-                this.parsedFile.getOriginalClassName().length() == 0;
+        return this.parsedSourceFile.getSourceClassName() == null ||
+                this.parsedSourceFile.getSourceClassName().length() == 0;
     }
 
-    private boolean parseClassDefinition(String item) {
-        if (item.indexOf("class ") == 0 && this.testFileConstructHasNotBeenDefined()) {
-            String[] array = item.split("class ");
+    private boolean parseClassDefinition(String row) {
+        if (row.indexOf("class ") == 0 && this.testFileConstructHasNotBeenDefined()) {
+            String[] classDefinition = row.split("class ");
             String className;
-            if (array[1].contains(" ")) { //class name contains spaces (implements interface, extends parent etc.)
-                array = array[1].split(" ");
-                className = array[0];
+            if (classDefinition[1].contains(" ")) { //class name contains spaces (implements interface, extends parent etc.)
+                className = (classDefinition[1].split(" "))[0];
             } else {
-                className = array[1];
+                className = classDefinition[1];
             }
-            this.parsedFile.setOriginalClassName(className);
+            this.parsedSourceFile.setSourceClassName(className);
 
             return true;
         }
@@ -103,21 +101,29 @@ public class OriginalFileParser {
         return false;
     }
 
-    private boolean parseDependencies(String item) {
-        if (item.contains("__construct")) {
-            item = item.split("\\(")[1];
-            if (item.equals(")")) { //constructor is empty
+    private boolean parseDependencies(String row) {
+        if (row.contains("public function __construct")) {
+            row = row.split("\\(")[1];
+            if (row.equals(")")) { //constructor is empty
                 return true;
             }
-            item = item.split("\\)")[0];
-            String[] items = item.split(",");
+            row = row.split("\\)")[0];
+            String[] items = row.split(",");
 
             for (String value : items) {
                 String[] array = value.trim().split(" ");
+                if (array[0].equals("array")) {
+                    array = new String[]{array[1]};
+                }
                 if (array.length > 1) { //Dependency had a type
-                    this.parsedFile.addDependency(array[0], array[1]);
+                    this.parsedSourceFile.addDependency(array[0], array[1]);
+
+                    if (!this.dependencyIsImported(array[0])) {
+                        //Add import of class if it's in the same namespace as src class and original import does not exist
+                        this.parsedSourceFile.getImports().addImport(this.getUsageOfClassInSameNamespace(array[0]));
+                    }
                 } else { //Dependency had no type (i.e. scalars with no strict typing)
-                    this.parsedFile.addDependency(null, array[0]);
+                    this.parsedSourceFile.addDependency(null, array[0]);
                 }
             }
 
@@ -127,11 +133,20 @@ public class OriginalFileParser {
         return false;
     }
 
-    private String getOriginalClassUsage() {
-        String namespace = this.parsedFile.getOriginalNamespace();
+    private boolean dependencyIsImported(String s) {
+        for (String usage : this.parsedSourceFile.getImports().getImports()) {
+            if (usage.contains(s + ";")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getUsageOfClassInSameNamespace(String className) {
+        String namespace = this.parsedSourceFile.getSourceNamespace();
         namespace = namespace.split("namespace ")[1];
         namespace = namespace.substring(0, namespace.length() - 1);
 
-        return "use " + namespace + "\\" + this.parsedFile.getOriginalClassName() + ";";
+        return "use " + namespace + "\\" + className + ";";
     }
 }

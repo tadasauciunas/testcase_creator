@@ -31,6 +31,7 @@
                 class="lt.auciunas.tadas.testCaseCreator.TestFileAction"
                 text="Create test file" description="Create a test class">
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt Q"/>
+            <!--<add-to-group group-id="ToolsMenu" anchor="last"/>-->
         </action>
     </actions>
 

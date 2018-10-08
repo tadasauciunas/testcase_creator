@@ -13,7 +13,7 @@ import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedTestFile;
 import lt.auciunas.tadas.testCaseCreator.phpFile.parser.OriginalFileParser;
 import lt.auciunas.tadas.testCaseCreator.phpFile.parser.TestFileParser;
 import lt.auciunas.tadas.testCaseCreator.phpFile.validator.FileValidator;
-import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedOriginalFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedSourceFile;
 import lt.auciunas.tadas.testCaseCreator.phpFile.TestFileCreator;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,9 +33,9 @@ public class TestFileAction extends AnAction {
                 VirtualFile createdFile = phpTestFileCreator.createTestFile();
 
                 OriginalFileParser phpParser = new OriginalFileParser(file);
-                ParsedOriginalFile parsedFile = phpParser.parseFile();
+                ParsedSourceFile parsedSrcFile = phpParser.parseFile();
 
-                TestFileParser testFileParser = new TestFileParser(parsedFile);
+                TestFileParser testFileParser = new TestFileParser(parsedSrcFile);
                 ParsedTestFile parsedTestFile = testFileParser.parseTestFileContents();
 
                 TestFileFiller testFileFiller = new TestFileFiller(createdFile, parsedTestFile);
@@ -43,7 +43,7 @@ public class TestFileAction extends AnAction {
                 testFileFiller.fillFile();
 
                 new OpenFileDescriptor(project, createdFile).navigate(true);
-            } catch (Exception | FileNotSupportedException e) {
+            } catch (Exception e) {
                 Messages.showMessageDialog(e.getMessage(), "Project", Messages.getInformationIcon());
             }
         } else {

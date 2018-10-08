@@ -7,22 +7,14 @@ import java.util.ArrayList;
  */
 public class ParsedTestFile {
 
-    private ArrayList<String> usages = new ArrayList<>(),
-            dependencyInitializations = new ArrayList<>(),
+    private ArrayList<String> dependencyInitializations = new ArrayList<>(),
             dependencyDefinitions = new ArrayList<>();
     private String originalNamespace, testFileClassDefinition, originalClassDefinition,
             originalClassInitialization;
+    private Imports imports = new Imports();
 
-    public ArrayList<String> getUsages() {
-        return usages;
-    }
-
-    public void setUsages(ArrayList<String> usages) {
-        this.usages = usages;
-    }
-
-    public void addUsage(String usage) {
-        this.usages.add(usage);
+    public Imports getImports() {
+        return imports;
     }
 
     public String getOriginalNamespace() {

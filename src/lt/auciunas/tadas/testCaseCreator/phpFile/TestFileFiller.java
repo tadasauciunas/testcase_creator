@@ -2,7 +2,7 @@ package lt.auciunas.tadas.testCaseCreator.phpFile;
 
 import com.intellij.openapi.fileEditor.impl.LoadTextUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ClearedTestFile;
+import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.Imports;
 import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedTestFile;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class TestFileFiller {
 
     private VirtualFile createdFile;
     private ParsedTestFile parsedTestFile;
-    private ClearedTestFile clearedTestFile = new ClearedTestFile();
+    private Imports existingTestFileImports = new Imports();
     private String testFileContentsAfterSetUp = "";
 
     public TestFileFiller(VirtualFile createdFile, ParsedTestFile parsedTestFile) {
@@ -24,7 +24,7 @@ public class TestFileFiller {
     }
 
     public void clearTestCaseSetUp() {
-        Integer i;
+        int i;
         if (LoadTextUtil.loadText(this.createdFile).toString().equals("")) {
             return; //file was empty and there was nothing to clear
         }
@@ -33,7 +33,7 @@ public class TestFileFiller {
 
         for (i = 0; i < rows.length; i++) {
             if (rows[i].indexOf("use ") == 0) {
-                this.clearedTestFile.addUsage(rows[i]);
+                this.existingTestFileImports.addImport(rows[i]);
             }
 
             if (rows[i].contains(FOUR_SPACE_TAB + "}")) {
@@ -50,7 +50,7 @@ public class TestFileFiller {
 
         content.append(this.parsedTestFile.getOriginalNamespace() + "\n\n");
 
-        for (String item : this.getOriginalDependenciesMerged()) {
+        for (String item : this.getMergedImports()) {
             content.append(item + "\n");
         }
         content.append("\n");
@@ -79,15 +79,34 @@ public class TestFileFiller {
         this.createdFile.setBinaryContent(testFileContents.getBytes());
     }
 
-    private List<String> getOriginalDependenciesMerged() {
-        List<String> combined = new ArrayList<>(this.clearedTestFile.getUsages());
+    private List<String> getMergedImports() {
+        List<String> combined = new ArrayList<>(this.existingTestFileImports.getImports());
 
-        for (String s : this.parsedTestFile.getUsages()) {
+        for (String s : this.parsedTestFile.getImports().getImports()) {
             if (!combined.contains(s)) {
                 combined.add(s);
             }
         }
 
+        addTestCaseImport(combined);
+
         return combined;
+    }
+
+    private void addTestCaseImport(List<String> combined) {
+        boolean testCaseImportExists = false;
+        for (String s : combined) {
+            if (s.contains("TestCase;")) {
+                testCaseImportExists = true;
+            }
+        }
+
+        if (!testCaseImportExists) {
+            combined.add(getTestCaseUsage());
+        }
+    }
+
+    private String getTestCaseUsage() {
+        return "use PHPUnit\\Framework\\TestCase;";
     }
 }
