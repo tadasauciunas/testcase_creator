@@ -54,7 +54,7 @@ public class TestFileParser {
             if (key == null) {
                 annotation = "/** @var " + FIXME_NO_VAR_TYPE + " */\n";
             } else {
-                annotation = "/** @var " + key + "|MockObject*/\n";
+                annotation = "/** @var " + key + "|MockObject */\n";
             }
 
             definition = FOUR_SPACE_TAB + "private " + value + ";\n\n";
@@ -83,6 +83,7 @@ public class TestFileParser {
             String value = decapitalize(entryValue).substring(1, entryValue.length());
             value = "$this->" + value;
             if (isLineTooLong(originalClassInitialization, value)) {
+                originalClassInitialization = originalClassInitialization.replaceFirst(".$","");
                 value = "\n" + FOUR_SPACE_TAB + FOUR_SPACE_TAB + FOUR_SPACE_TAB + value;
             }
             originalClassInitialization += value + ", ";

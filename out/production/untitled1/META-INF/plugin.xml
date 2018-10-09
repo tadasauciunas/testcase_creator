@@ -1,10 +1,21 @@
 <idea-plugin>
     <id>lt.auciunas.tadas.testCaseCreator</id>
-    <name>Test case creator</name>
+    <name>Test class creator</name>
     <version>1.0</version>
     <vendor>Tadas Aučiūnas</vendor>
 
-    <description>PHPStorm plugin for creating test classes</description>
+    <description>
+        <![CDATA[
+<p><b>Instructions</b>: use default shortcut Shift+Alt+Q while you have a class in the src/ directory opened</p>
+<br>
+<p>Plugin for creating test classes which are prepared for unit testing the class:</p>
+<ul>
+    <li>Usages imported from the original class</li>
+    <li>Class dependencies defined as private test class variables</li>
+    <li>Class dependencies mocked and injected into the tested class</li>
+<ul>
+]]>
+    </description>
     <change-notes></change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
@@ -31,7 +42,6 @@
                 class="lt.auciunas.tadas.testCaseCreator.TestFileAction"
                 text="Create test file" description="Create a test class">
             <keyboard-shortcut keymap="$default" first-keystroke="shift alt Q"/>
-            <!--<add-to-group group-id="ToolsMenu" anchor="last"/>-->
         </action>
     </actions>
 
