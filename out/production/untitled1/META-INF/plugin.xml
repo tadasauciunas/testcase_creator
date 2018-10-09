@@ -8,7 +8,7 @@
         <![CDATA[
 <p><b>Instructions</b>: use default shortcut Shift+Alt+Q while you have a class in the src/ directory opened</p>
 <br>
-<p>Plugin for creating test classes which are prepared for unit testing the class:</p>
+<p>Plugin for creating test classes which have the necessary structure for unit testing a class:</p>
 <ul>
     <li>Usages imported from the original class</li>
     <li>Class dependencies defined as private test class variables</li>
