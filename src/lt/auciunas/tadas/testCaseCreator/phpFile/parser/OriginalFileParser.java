@@ -4,6 +4,8 @@ import com.intellij.openapi.fileEditor.impl.LoadTextUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedSourceFile;
 
+import java.util.Arrays;
+
 public class OriginalFileParser {
     private VirtualFile originalFile;
     private String[] originalFileRows;
@@ -112,13 +114,13 @@ public class OriginalFileParser {
 
             for (String value : items) {
                 String[] array = value.trim().split(" ");
-                if (array[0].equals("array")) {
-                    array = new String[]{array[1]};
-                }
+//                if (array[0].equals("array")) { //fixme not sure why this was needed
+//                    array = new String[]{array[1]};
+//                }
                 if (array.length > 1) { //Dependency had a type
                     this.parsedSourceFile.addDependency(array[0], array[1]);
 
-                    if (!this.dependencyIsImported(array[0])) {
+                    if (this.dependencyCanBeImported(array[0]) && !this.dependencyIsImported(array[0])) {
                         //Add import of class if it's in the same namespace as src class and original import does not exist
                         this.parsedSourceFile.getImports().addImport(this.getUsageOfClassInSameNamespace(array[0]));
                     }
@@ -140,6 +142,12 @@ public class OriginalFileParser {
             }
         }
         return false;
+    }
+
+    private boolean dependencyCanBeImported(String s) {
+        String[] nonImportableTypes = {"string", "int", "float", "array"};
+
+        return !Arrays.asList(nonImportableTypes).contains(s);
     }
 
     private String getUsageOfClassInSameNamespace(String className) {

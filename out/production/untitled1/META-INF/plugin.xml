@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>lt.auciunas.tadas.testCaseCreator</id>
     <name>Test class creator</name>
-    <version>1.0</version>
+    <version>1.0.2</version>
     <vendor>Tadas Aučiūnas</vendor>
 
     <description>

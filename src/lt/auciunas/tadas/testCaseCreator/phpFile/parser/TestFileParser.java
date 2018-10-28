@@ -4,9 +4,8 @@ import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedSourceFile;
 import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedTestFile;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public class TestFileParser {
@@ -46,6 +45,7 @@ public class TestFileParser {
 
     private void parseDependencies() {
         String annotation, definition, init;
+        String[] nonMockableTypes = {"string", "int", "float", "array"};
 
         for (Map<String, String> entries : this.parsedSrcFile.getDependencies()) {
             String key = entries.keySet().iterator().next();
@@ -54,7 +54,12 @@ public class TestFileParser {
             if (key == null) {
                 annotation = "/** @var " + FIXME_NO_VAR_TYPE + " */\n";
             } else {
-                annotation = "/** @var " + key + "|MockObject */\n";
+                annotation = "/** @var " + key;
+                if (Arrays.asList(nonMockableTypes).contains(key)) {
+                    annotation = annotation + " */\n";
+                } else {
+                    annotation = annotation + "|MockObject */\n";
+                }
             }
 
             definition = FOUR_SPACE_TAB + "private " + value + ";\n\n";
@@ -63,6 +68,12 @@ public class TestFileParser {
             value = value.substring(1);
             if (key == null) {
                 init = "$this->" + value + " = null; " + FIXME_NO_VAR_VALUE + "\n";
+            } else if (key.equals("string")) {
+                init = "$this->" + value + " = '';\n";
+            } else if (key.equals("array")) {
+                init = "$this->" + value + " = [];\n";
+            } else if (key.equals("int") || key.equals("float")) {
+                init = "$this->" + value + " = 0;\n";
             } else {
                 init = "$this->" + value + " = $this->createMock(" + key + "::class);\n";
             }
@@ -83,7 +94,7 @@ public class TestFileParser {
             String value = decapitalize(entryValue).substring(1, entryValue.length());
             value = "$this->" + value;
             if (isLineTooLong(originalClassInitialization, value)) {
-                originalClassInitialization = originalClassInitialization.replaceFirst(".$","");
+                originalClassInitialization = originalClassInitialization.replaceFirst(".$", "");
                 value = "\n" + FOUR_SPACE_TAB + FOUR_SPACE_TAB + FOUR_SPACE_TAB + value;
             }
             originalClassInitialization += value + ", ";

@@ -66,7 +66,7 @@ public class TestFileFiller {
         for (String item : this.parsedTestFile.getDependencyInitializations()) {
             content.append(FOUR_SPACE_TAB + FOUR_SPACE_TAB + item);
         }
-        content.append(FOUR_SPACE_TAB + FOUR_SPACE_TAB + this.parsedTestFile.getOriginalClassInitialization());
+        content.append(this.parsedTestFile.getOriginalClassInitialization());
         content.append(FOUR_SPACE_TAB + "}\n");
 
         String testFileContents = content.toString() + this.testFileContentsAfterSetUp;
