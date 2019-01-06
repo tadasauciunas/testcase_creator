@@ -50,7 +50,7 @@ public class OriginalFileParser {
                     this.originalFileRows[constructorRow] += item; //add current line to the original constructor line
                 }
 
-                if (item.charAt(item.length() - 1) == ')') //if this line is the end of the constructor
+                if (item.charAt(item.length() - 1) == ')' || item.contains(") {")) //if this line is the end of the constructor
                 {
                     return;
                 }

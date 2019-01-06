@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bae0a1e-06ab-4085-bffe-370654405316" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/untitled1/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/untitled1/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testcase_creator2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/testcase_creator2.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,30 +23,37 @@
     <session id="300703289">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.12" value="2" />
-          <entry key="project.open.time.13" value="2" />
+          <entry key="project.open.time.13" value="3" />
           <entry key="project.open.time.15" value="2" />
-          <entry key="project.open.time.18" value="3" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.18" value="4" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="2" />
+          <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.26" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="5" />
+          <entry key="class" value="6" />
+          <entry key="gitignore" value="1" />
           <entry key="iml" value="1" />
-          <entry key="java" value="78" />
+          <entry key="java" value="83" />
+          <entry key="py" value="1" />
           <entry key="xml" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="5" />
+          <entry key="CLASS" value="6" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="78" />
+          <entry key="JAVA" value="83" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
@@ -51,19 +61,20 @@
         <counts>
           <entry key="class" value="1" />
           <entry key="dummy" value="519" />
+          <entry key="gitignore" value="17" />
           <entry key="iml" value="1" />
-          <entry key="java" value="3660" />
-          <entry key="txt" value="71" />
-          <entry key="xml" value="803" />
+          <entry key="java" value="4143" />
+          <entry key="txt" value="131" />
+          <entry key="xml" value="805" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CLASS" value="1" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="3660" />
-          <entry key="PLAIN_TEXT" value="590" />
-          <entry key="XML" value="803" />
+          <entry key="JAVA" value="4143" />
+          <entry key="PLAIN_TEXT" value="667" />
+          <entry key="XML" value="805" />
         </counts>
       </usages-collector>
     </session>
@@ -71,65 +82,40 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.java">
+        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/TestFileAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="80" column="37" lean-forward="true" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
+            <state relative-caret-position="75">
+              <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="28" column="73" lean-forward="true" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="50" column="38" lean-forward="true" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5463#5464#0" expanded="true" />
-                <element signature="e#5542#5543#0" expanded="true" />
-                <element signature="e#5585#5586#0" expanded="true" />
-                <element signature="e#5657#5658#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/ParsedTestFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
-              <folding>
-                <element signature="e#1468#1469#0" expanded="true" />
-                <element signature="e#1516#1517#0" expanded="true" />
-                <element signature="e#2267#2268#0" expanded="true" />
-                <element signature="e#2322#2323#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/Imports.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="e#344#345#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="122" selection-start-line="122" selection-end-line="122" />
+            <state relative-caret-position="15">
+              <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -145,7 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>__CONs</find>
       <find>constructFound</find>
       <find>__constr</find>
       <find>values</find>
@@ -175,6 +160,7 @@
       <find>addusage</find>
       <find>rows</find>
       <find>= 0;</find>
+      <find>content.append(this.pars</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator</dir>
@@ -195,12 +181,14 @@
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/Usages.java" />
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/ParsedTestFile.java" />
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/Imports.java" />
-        <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java" />
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/ParsedSourceFile.java" />
         <option value="$PROJECT_DIR$/resources/META-INF/plugin.xml" />
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.java" />
+        <option value="$USER_HOME$/Downloads/sdk-python/MyFighter.py" />
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.java" />
+        <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java" />
         <option value="$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -226,47 +214,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
               <item name="untitled1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="testCaseCreator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="testCaseCreator" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="testCaseCreator" type="462c0819:PsiDirectoryNode" />
-              <item name="phpFile" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="untitled1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="untitled1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="testCaseCreator" type="462c0819:PsiDirectoryNode" />
-              <item name="phpFile" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -275,8 +230,9 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="filler&#9;FILE&#9;file:///home/tadas/IdeaProjects/untitled1/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java&#10;exception&#9;PSI&#9;JAVA://lt.auciunas.tadas.testCaseCreator.exceptions.FileNotSupportedException&#10;pluginx&#9;FILE&#9;file:///home/tadas/IdeaProjects/untitled1/resources/META-INF/plugin.xml&#10;testfilefill&#9;PSI&#9;JAVA://lt.auciunas.tadas.testCaseCreator.phpFile.TestFileFiller" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540749984801" />
+    <property name="SearchEverywhereHistoryKey" value="testfilefiller&#9;FILE&#9;file:///home/tadas/IdeaProjects/untitled1/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java&#10;filler&#9;FILE&#9;file:///home/tadas/IdeaProjects/untitled1/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java&#10;exception&#9;PSI&#9;JAVA://lt.auciunas.tadas.testCaseCreator.exceptions.FileNotSupportedException&#10;pluginx&#9;FILE&#9;file:///home/tadas/IdeaProjects/untitled1/resources/META-INF/plugin.xml&#10;testfilefill&#9;PSI&#9;JAVA://lt.auciunas.tadas.testCaseCreator.phpFile.TestFileFiller" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546774552908" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -369,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539112411488</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added support for basic non mockable types">
+      <created>1540750056365</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1540750056365</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -385,7 +348,7 @@
     <frame x="-1" y="25" width="1368" height="720" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.225" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24772727" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -395,13 +358,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2893401" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.30118445" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2961083" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3288364" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.8460237" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.22673436" />
+      <window_info anchor="bottom" id="Version Control" order="9" visible="true" weight="0.42131978" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32994923" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -447,17 +410,39 @@
     <MESSAGE value="some more updates" />
     <MESSAGE value="small bugfix and readme updates" />
     <MESSAGE value="updated jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated jar" />
+    <MESSAGE value="added support for basic non mockable types" />
+    <option name="LAST_COMMIT_MESSAGE" value="added support for basic non mockable types" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
         <watch expression="this.parsedTestFile.getOriginalClassInitialization()" language="JAVA" />
+        <watch expression="parent.getParent().getName()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>parent.getParent().getName()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parent.getParent()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parent.getParent())</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>parent.getParent(</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>this.parsedTestFile.getOriginalClassInitialization()</expression-string>
         <language-id>JAVA</language-id>
@@ -483,31 +468,6 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>this.dependencies.get(0).values()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.dependencies.get(0)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.dependencies</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.dependencies[0]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.dependencies.keySet()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
@@ -526,13 +486,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-742">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/List.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -544,13 +497,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="691" column="18" selection-start-line="691" selection-start-column="18" selection-end-line="691" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/TestFileAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -579,10 +525,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
-          <folding>
-            <element signature="e#956#957#0" expanded="true" />
-            <element signature="e#991#992#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -590,10 +532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#497#498#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -601,17 +539,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-30">
           <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-          <folding>
-            <element signature="e#571#572#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.java">
+    <entry file="file://$USER_HOME$/Downloads/sdk-python/MyFighter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="122" selection-start-line="122" selection-end-line="122" />
+        <state relative-caret-position="272">
+          <caret line="41" column="45" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/ParsedTestFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -619,46 +560,64 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#344#345#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/TestFileParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="80" column="37" lean-forward="true" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
+        <state relative-caret-position="646">
+          <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5463#5464#0" expanded="true" />
-            <element signature="e#5542#5543#0" expanded="true" />
-            <element signature="e#5585#5586#0" expanded="true" />
-            <element signature="e#5657#5658#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/mapper/ParsedTestFile.java">
+    <entry file="file://$PROJECT_DIR$/out/production/untitled1/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+        <state relative-caret-position="120">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
           <folding>
-            <element signature="e#1468#1469#0" expanded="true" />
-            <element signature="e#1516#1517#0" expanded="true" />
-            <element signature="e#2267#2268#0" expanded="true" />
-            <element signature="e#2322#2323#0" expanded="true" />
+            <element signature="e#0#5992#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/parser/OriginalFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/TestFileAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="28" column="73" lean-forward="true" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lt/auciunas/tadas/testCaseCreator/phpFile/TestFileFiller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+        <state relative-caret-position="116">
+          <caret line="50" column="38" lean-forward="true" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
         </state>
       </provider>
     </entry>

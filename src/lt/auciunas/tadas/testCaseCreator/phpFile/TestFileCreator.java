@@ -9,6 +9,7 @@ import java.util.*;
 public class TestFileCreator {
 
     private VirtualFile file;
+    private boolean isModuleFullyPsr4Compliant = true;
 
     public TestFileCreator(VirtualFile file) {
         this.file = file;
@@ -38,6 +39,11 @@ public class TestFileCreator {
         while (!isDirectorySrc(parent)) {
             directories.add(parent.getName());
             parent = parent.getParent();
+        }
+
+        String moduleName = parent.getParent().getName();
+        if (directories.contains(moduleName)) {
+            this.isModuleFullyPsr4Compliant = false;
         }
 
         String defaultTestDirName = getDefaultTestDirName(parent);
@@ -80,8 +86,8 @@ public class TestFileCreator {
             throws IOException {
         int key = 0;
         for (String item : directories) {
-            if (key == 1) {
-                item += "Test"; //TODO this is probably not needed for PSR-4 classes
+            if (key == 1 && !this.isModuleFullyPsr4Compliant) {
+                item += "Test";
             }
 
             if (parent.findChild(item) == null) {
