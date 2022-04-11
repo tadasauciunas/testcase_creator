@@ -60,7 +60,7 @@ public class TestFileFiller {
         for (String item : this.parsedTestFile.getDependencyDefinitions()) {
             content.append(FOUR_SPACE_TAB + item);
         }
-        content.append(FOUR_SPACE_TAB + this.parsedTestFile.getOriginalClassDefinition());
+        content.append("\n" + FOUR_SPACE_TAB + this.parsedTestFile.getOriginalClassDefinition() + "\n");
 
         content.append(FOUR_SPACE_TAB + "protected function setUp(): void\n" + FOUR_SPACE_TAB + "{\n");
         for (String item : this.parsedTestFile.getDependencyInitializations()) {

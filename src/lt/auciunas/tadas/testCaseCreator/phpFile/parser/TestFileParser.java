@@ -43,20 +43,18 @@ public class TestFileParser {
             String key = entries.keySet().iterator().next();
             String value = decapitalize(entries.values().iterator().next());
 
-            String annotation;
+            String type;
             if (key == null) {
-                annotation = "/** @var " + FIXME_NO_VAR_TYPE + " */\n";
+                type = "FIXME_NO_VAR_TYPE";
             } else {
-                annotation = "/** @var " + key;
-                if (Arrays.asList(nonMockableTypes).contains(key)) {
-                    annotation = annotation + " */\n";
-                } else {
-                    annotation = annotation + "|MockObject */\n";
+                type = key;
+                if (!Arrays.asList(nonMockableTypes).contains(key)) {
+                    type = type + "|MockObject";
                 }
             }
 
-            String definition = FOUR_SPACE_TAB + "private " + value + ";\n\n";
-            this.parsedTestFile.addDependencyDefinition(annotation + definition);
+            String definition = "private " + type + " " + value + ";\n";
+            this.parsedTestFile.addDependencyDefinition(definition);
 
             String init;
             value = value.substring(1);
@@ -107,8 +105,8 @@ public class TestFileParser {
 
     private void parseOriginalClassDefinition() {
         String originalClassName = this.parsedSrcFile.getSourceClassName();
-        String originalClassDefinition = "/** @var " + originalClassName + " */\n";
-        originalClassDefinition = originalClassDefinition + "    private $" + this.decapitalize(originalClassName) + ";\n\n";
+        String originalClassDefinition
+                = "private " + originalClassName + " $" + this.decapitalize(originalClassName) + ";\n";
         this.parsedTestFile.setOriginalClassDefinition(originalClassDefinition);
     }
 
