@@ -88,8 +88,7 @@ public class TestFileFiller {
             }
         }
 
-        addTestCaseImport(combined);
-
+        this.addTestCaseImport(combined);
         return combined;
     }
 
@@ -98,11 +97,12 @@ public class TestFileFiller {
         for (String s : combined) {
             if (s.contains("TestCase;")) {
                 testCaseImportExists = true;
+                break;
             }
         }
 
         if (!testCaseImportExists) {
-            combined.add(getTestCaseUsage());
+            combined.add(this.getTestCaseUsage());
         }
     }
 

@@ -1,20 +1,18 @@
 package lt.auciunas.tadas.testCaseCreator.phpFile.parser;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.regex.Pattern;
 import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedSourceFile;
 import lt.auciunas.tadas.testCaseCreator.phpFile.mapper.ParsedTestFile;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.regex.Pattern;
-
 public class TestFileParser {
-
     private static final String FIXME_NO_VAR_TYPE = "//FIXME I don't know my type";
     private static final String FIXME_NO_VAR_VALUE = "//FIXME I don't know my value";
     private static final String FOUR_SPACE_TAB = "    ";
     private static final Integer MAX_LINE_LENGTH = 120;
-
     private ParsedTestFile parsedTestFile;
     private ParsedSourceFile parsedSrcFile;
 
@@ -24,33 +22,28 @@ public class TestFileParser {
 
     public ParsedTestFile parseTestFileContents() {
         this.parsedTestFile = new ParsedTestFile();
-
         this.parseTestNameSpace();
         this.parseUsages();
         this.parseDependencies();
         this.parseTestClassDefinition();
         this.parseOriginalClassDefinition();
         this.parseOriginalClassInitialization();
-
         return this.parsedTestFile;
     }
 
     private void parseTestClassDefinition() {
-        String testFileClassDefinition = "class " +
-                this.parsedSrcFile.getSourceClassName() +
-                "Test extends TestCase\n{\n";
-
+        String testFileClassDefinition = "class " + this.parsedSrcFile.getSourceClassName() + "Test extends TestCase\n{\n";
         this.parsedTestFile.setTestFileClassDefinition(testFileClassDefinition);
     }
 
     private void parseDependencies() {
-        String annotation, definition, init;
-        String[] nonMockableTypes = {"string", "int", "float", "array"};
+        String[] nonMockableTypes = new String[]{"string", "int", "float", "array"};
 
         for (Map<String, String> entries : this.parsedSrcFile.getDependencies()) {
             String key = entries.keySet().iterator().next();
             String value = decapitalize(entries.values().iterator().next());
 
+            String annotation;
             if (key == null) {
                 annotation = "/** @var " + FIXME_NO_VAR_TYPE + " */\n";
             } else {
@@ -62,9 +55,10 @@ public class TestFileParser {
                 }
             }
 
-            definition = FOUR_SPACE_TAB + "private " + value + ";\n\n";
+            String definition = FOUR_SPACE_TAB + "private " + value + ";\n\n";
             this.parsedTestFile.addDependencyDefinition(annotation + definition);
 
+            String init;
             value = value.substring(1);
             if (key == null) {
                 init = "$this->" + value + " = null; " + FIXME_NO_VAR_VALUE + "\n";
@@ -72,10 +66,10 @@ public class TestFileParser {
                 init = "$this->" + value + " = '';\n";
             } else if (key.equals("array")) {
                 init = "$this->" + value + " = [];\n";
-            } else if (key.equals("int") || key.equals("float")) {
-                init = "$this->" + value + " = 0;\n";
-            } else {
+            } else if (!key.equals("int") && !key.equals("float")) {
                 init = "$this->" + value + " = $this->createMock(" + key + "::class);\n";
+            } else {
+                init = "$this->" + value + " = 0;\n";
             }
 
             this.parsedTestFile.addDependencyInitialization(init);
@@ -83,45 +77,38 @@ public class TestFileParser {
     }
 
     private void parseOriginalClassInitialization() {
-        String originalClassInitialization, originalClassName = parsedSrcFile.getSourceClassName();
+        String originalClassName = this.parsedSrcFile.getSourceClassName();
+        String originalClassInitialization = "\n        $this->" + this.decapitalize(originalClassName) + " = new " + originalClassName + "(";
 
-        originalClassInitialization = "\n" + FOUR_SPACE_TAB + FOUR_SPACE_TAB + "$this->" +
-                decapitalize(originalClassName) +
-                " = new " + originalClassName + "(";
-
-        for (Map<String, String> entries : this.parsedSrcFile.getDependencies()) {
-            String entryValue = entries.values().iterator().next();
-            String value = decapitalize(entryValue).substring(1, entryValue.length());
+        String value;
+        for(Iterator iterator = this.parsedSrcFile.getDependencies().iterator(); iterator.hasNext(); originalClassInitialization = originalClassInitialization + value + ", ") {
+            Map<String, String> entries = (Map)iterator.next();
+            String entryValue = (String)entries.values().iterator().next();
+            value = this.decapitalize(entryValue).substring(1, entryValue.length());
             value = "$this->" + value;
-            if (isLineTooLong(originalClassInitialization, value)) {
-                originalClassInitialization = originalClassInitialization.replaceFirst(".$", "");
-                value = "\n" + FOUR_SPACE_TAB + FOUR_SPACE_TAB + FOUR_SPACE_TAB + value;
-            }
-            originalClassInitialization += value + ", ";
         }
 
         if (this.parsedSrcFile.getDependencies().size() > 0) {
-            originalClassInitialization = originalClassInitialization.
-                    substring(0, originalClassInitialization.length() - 2);
+            originalClassInitialization = originalClassInitialization
+                    .substring(0, originalClassInitialization.length() - 2);
         }
-        originalClassInitialization += ");\n";
+
+        originalClassInitialization = originalClassInitialization + ");\n";
+        if (originalClassInitialization.length() > MAX_LINE_LENGTH) {
+            String two_tabs = "        ";
+            String three_tabs = two_tabs + "    ";
+            originalClassInitialization = originalClassInitialization.replaceAll(", ", ",\n" + three_tabs);
+            originalClassInitialization = originalClassInitialization.replaceAll("\\(", "(\n" + three_tabs);
+            originalClassInitialization = originalClassInitialization.replaceAll("\\)", "\n" + two_tabs + ")");
+        }
 
         this.parsedTestFile.setOriginalClassInitialization(originalClassInitialization);
     }
 
-    private boolean isLineTooLong(String initial, String additional) {
-        String[] initialLines = initial.split("\n");
-        int lastLineLength = initialLines[initialLines.length - 1].length();
-
-        return lastLineLength + additional.length() > MAX_LINE_LENGTH;
-    }
-
     private void parseOriginalClassDefinition() {
-        String originalClassDefinition, originalClassName = parsedSrcFile.getSourceClassName();
-
-        originalClassDefinition = "/** @var " + originalClassName + " */\n";
-        originalClassDefinition += "    private $" + decapitalize(originalClassName) + ";\n\n";
-
+        String originalClassName = this.parsedSrcFile.getSourceClassName();
+        String originalClassDefinition = "/** @var " + originalClassName + " */\n";
+        originalClassDefinition = originalClassDefinition + "    private $" + this.decapitalize(originalClassName) + ";\n\n";
         this.parsedTestFile.setOriginalClassDefinition(originalClassDefinition);
     }
 
@@ -129,13 +116,13 @@ public class TestFileParser {
         this.parsedTestFile.getImports().setImports(this.parsedSrcFile.getImports().getImports());
 
         if (this.parsedSrcFile.getDependencies().size() > 0) { //if there's anything to mock
-            this.parsedTestFile.getImports().addImport(getMockObjectUsage());
+            this.parsedTestFile.getImports().addImport(this.getMockObjectUsage());
         }
     }
 
 
     private void parseTestNameSpace() {
-        this.parsedTestFile.setOriginalNamespace(createTestNamespace());
+        this.parsedTestFile.setOriginalNamespace(this.createTestNamespace());
     }
 
     private String getMockObjectUsage() {

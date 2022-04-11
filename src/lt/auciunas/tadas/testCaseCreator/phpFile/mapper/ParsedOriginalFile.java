@@ -1,11 +1,11 @@
 package lt.auciunas.tadas.testCaseCreator.phpFile.mapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Mapper/bucket object necessary for transferring data which was parsed from the original file
- * and will be used for creating the test file.
- */
 public class ParsedOriginalFile {
 
     private ArrayList<String> usages = new ArrayList<>();
@@ -13,7 +13,7 @@ public class ParsedOriginalFile {
     private String originalNamespace, originalClassName;
 
     public ArrayList<String> getUsages() {
-        return usages;
+        return this.usages;
     }
 
     public void addUsage(String usage) {
@@ -21,7 +21,7 @@ public class ParsedOriginalFile {
     }
 
     public String getOriginalNamespace() {
-        return originalNamespace;
+        return this.originalNamespace;
     }
 
     public void setOriginalNamespace(String originalNamespace) {
@@ -29,7 +29,7 @@ public class ParsedOriginalFile {
     }
 
     public String getOriginalClassName() {
-        return originalClassName;
+        return this.originalClassName;
     }
 
     public void setOriginalClassName(String originalClassName) {
@@ -40,7 +40,8 @@ public class ParsedOriginalFile {
         if (this.dependencies == null) {
             this.dependencies = new LinkedHashMap<>();
         }
-        return dependencies;
+
+        return this.dependencies;
     }
 
     public void addDependency(String key, String value) {
@@ -49,7 +50,7 @@ public class ParsedOriginalFile {
         if (this.dependencies.get(key) == null) {
             values.add(value);
         } else {
-            values.addAll(this.dependencies.get(key));
+            values.addAll((Collection)this.dependencies.get(key));
             values.add(value);
         }
 

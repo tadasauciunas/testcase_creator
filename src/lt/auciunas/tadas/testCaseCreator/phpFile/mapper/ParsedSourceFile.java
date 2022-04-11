@@ -13,11 +13,11 @@ public class ParsedSourceFile {
     private Imports imports = new Imports();
 
     public Imports getImports() {
-        return imports;
+        return this.imports;
     }
 
     public String getSourceNamespace() {
-        return sourceNamespace;
+        return this.sourceNamespace;
     }
 
     public void setSourceNamespace(String originalNamespace) {
@@ -25,7 +25,7 @@ public class ParsedSourceFile {
     }
 
     public String getSourceClassName() {
-        return sourceClassName;
+        return this.sourceClassName;
     }
 
     public void setSourceClassName(String originalClassName) {
@@ -33,7 +33,7 @@ public class ParsedSourceFile {
     }
 
     public List<Map<String, String>> getDependencies() {
-        return dependencies;
+        return this.dependencies;
     }
 
     public void addDependency(String key, String value) {

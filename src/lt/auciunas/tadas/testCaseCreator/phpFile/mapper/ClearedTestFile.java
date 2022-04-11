@@ -10,7 +10,7 @@ public class ClearedTestFile {
     private ArrayList<String> usages = new ArrayList<>();
 
     public ArrayList<String> getUsages() {
-        return usages;
+        return this.usages;
     }
 
     public void addUsage(String dependency) {
