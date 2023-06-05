@@ -7,7 +7,7 @@ public class Imports {
     private List<String> imports = new ArrayList<>();
 
     public List<String> getImports() {
-        return imports;
+        return this.imports;
     }
 
     public void addImport(String anImport) {

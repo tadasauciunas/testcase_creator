@@ -14,11 +14,11 @@ public class ParsedTestFile {
     private Imports imports = new Imports();
 
     public Imports getImports() {
-        return imports;
+        return this.imports;
     }
 
     public String getOriginalNamespace() {
-        return originalNamespace;
+        return this.originalNamespace;
     }
 
     public void setOriginalNamespace(String originalNamespace) {
@@ -26,7 +26,7 @@ public class ParsedTestFile {
     }
 
     public String getTestFileClassDefinition() {
-        return testFileClassDefinition;
+        return this.testFileClassDefinition;
     }
 
     public void setTestFileClassDefinition(String testFileClassDefinition) {
@@ -34,7 +34,7 @@ public class ParsedTestFile {
     }
 
     public ArrayList<String> getDependencyDefinitions() {
-        return dependencyDefinitions;
+        return this.dependencyDefinitions;
     }
 
     public void addDependencyDefinition(String dependencyDefinitions) {
@@ -45,7 +45,7 @@ public class ParsedTestFile {
     }
 
     public ArrayList<String> getDependencyInitializations() {
-        return dependencyInitializations;
+        return this.dependencyInitializations;
     }
 
     public void addDependencyInitialization(String dependencyInitialization) {

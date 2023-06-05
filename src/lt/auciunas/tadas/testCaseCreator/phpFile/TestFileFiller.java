@@ -60,7 +60,7 @@ public class TestFileFiller {
         for (String item : this.parsedTestFile.getDependencyDefinitions()) {
             content.append(FOUR_SPACE_TAB + item);
         }
-        content.append(FOUR_SPACE_TAB + this.parsedTestFile.getOriginalClassDefinition());
+        content.append("\n" + FOUR_SPACE_TAB + this.parsedTestFile.getOriginalClassDefinition() + "\n");
 
         content.append(FOUR_SPACE_TAB + "protected function setUp(): void\n" + FOUR_SPACE_TAB + "{\n");
         for (String item : this.parsedTestFile.getDependencyInitializations()) {
@@ -88,8 +88,7 @@ public class TestFileFiller {
             }
         }
 
-        addTestCaseImport(combined);
-
+        this.addTestCaseImport(combined);
         return combined;
     }
 
@@ -98,11 +97,12 @@ public class TestFileFiller {
         for (String s : combined) {
             if (s.contains("TestCase;")) {
                 testCaseImportExists = true;
+                break;
             }
         }
 
         if (!testCaseImportExists) {
-            combined.add(getTestCaseUsage());
+            combined.add(this.getTestCaseUsage());
         }
     }
 

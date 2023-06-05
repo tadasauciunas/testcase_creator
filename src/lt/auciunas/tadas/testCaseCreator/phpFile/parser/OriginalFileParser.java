@@ -27,7 +27,7 @@ public class OriginalFileParser {
         }
 
         this.parsedSourceFile.getImports().addImport(
-                getUsageOfClassInSameNamespace(this.parsedSourceFile.getSourceClassName())
+                this.getUsageOfClassInSameNamespace(this.parsedSourceFile.getSourceClassName())
         );
 
         return this.parsedSourceFile;
@@ -36,103 +36,107 @@ public class OriginalFileParser {
     private void parseOriginalFileRows() {
         this.originalFileRows = LoadTextUtil.loadText(this.originalFile).toString().split("\n");
         this.originalFileRows[0] = "";
+        int rowNumber = 0;
+        int constructorRow = 0;
+        boolean constructFound = false;
+        boolean multiLineConstructor = false;
+        String[] var5 = this.originalFileRows;
+        int var6 = var5.length;
 
-        int rowNumber = 0, constructorRow = 0;
-        boolean constructFound = false, multiLineConstructor = false;
-
-        for (String item : this.originalFileRows) {
+        for(int var7 = 0; var7 < var6; ++var7) {
+            String item = var5[var7];
             if (!constructFound && item.contains("__construct")) {
                 constructFound = true;
                 constructorRow = rowNumber;
             }
+
             if (constructFound) {
                 if (multiLineConstructor) {
-                    this.originalFileRows[constructorRow] += item; //add current line to the original constructor line
+                    StringBuilder var10000 = new StringBuilder();
+                    String[] var10002 = this.originalFileRows;
+                    var10002[constructorRow] = var10000.append(var10002[constructorRow]).append(item).toString();
                 }
 
-                if (item.charAt(item.length() - 1) == ')' || item.contains(") {")) //if this line is the end of the constructor
-                {
+                if (item.charAt(item.length() - 1) == ')' || item.contains(") {")) {
                     return;
                 }
 
                 multiLineConstructor = true;
             }
-            rowNumber++;
+
+            ++rowNumber;
         }
+
     }
 
     private boolean parseNamespace(String row) {
         if (row.indexOf("namespace") == 0) {
             this.parsedSourceFile.setSourceNamespace(row);
-
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     private boolean parseUsages(String row) {
-        if (row.indexOf("use ") == 0 && testFileConstructHasNotBeenDefined()) {
+        if (row.indexOf("use ") == 0 && this.testFileConstructHasNotBeenDefined()) {
             this.parsedSourceFile.getImports().addImport(row);
-
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     private boolean testFileConstructHasNotBeenDefined() {
-        return this.parsedSourceFile.getSourceClassName() == null ||
-                this.parsedSourceFile.getSourceClassName().length() == 0;
+        return this.parsedSourceFile.getSourceClassName() == null || this.parsedSourceFile.getSourceClassName().length() == 0;
     }
 
     private boolean parseClassDefinition(String row) {
         if (row.indexOf("class ") == 0 && this.testFileConstructHasNotBeenDefined()) {
             String[] classDefinition = row.split("class ");
             String className;
-            if (classDefinition[1].contains(" ")) { //class name contains spaces (implements interface, extends parent etc.)
-                className = (classDefinition[1].split(" "))[0];
+            if (classDefinition[1].contains(" ")) {
+                className = classDefinition[1].split(" ")[0];
             } else {
                 className = classDefinition[1];
             }
+
             this.parsedSourceFile.setSourceClassName(className);
-
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     private boolean parseDependencies(String row) {
         if (row.contains("public function __construct")) {
             row = row.split("\\(")[1];
-            if (row.equals(")")) { //constructor is empty
+            if (row.equals(")")) {
+                return true;
+            } else {
+                row = row.split("\\)")[0];
+                String[] items = row.split(",");
+                String[] var3 = items;
+                int var4 = items.length;
+
+                for(int var5 = 0; var5 < var4; ++var5) {
+                    String value = var3[var5];
+                    String[] array = value.trim().split(" ");
+                    if (array.length > 1) {
+                        this.parsedSourceFile.addDependency(array[0], array[1]);
+                        if (this.dependencyCanBeImported(array[0]) && !this.dependencyIsImported(array[0])) {
+                            this.parsedSourceFile.getImports().addImport(this.getUsageOfClassInSameNamespace(array[0]));
+                        }
+                    } else {
+                        this.parsedSourceFile.addDependency((String)null, array[0]);
+                    }
+                }
+
                 return true;
             }
-            row = row.split("\\)")[0];
-            String[] items = row.split(",");
-
-            for (String value : items) {
-                String[] array = value.trim().split(" ");
-//                if (array[0].equals("array")) { //fixme not sure why this was needed
-//                    array = new String[]{array[1]};
-//                }
-                if (array.length > 1) { //Dependency had a type
-                    this.parsedSourceFile.addDependency(array[0], array[1]);
-
-                    if (this.dependencyCanBeImported(array[0]) && !this.dependencyIsImported(array[0])) {
-                        //Add import of class if it's in the same namespace as src class and original import does not exist
-                        this.parsedSourceFile.getImports().addImport(this.getUsageOfClassInSameNamespace(array[0]));
-                    }
-                } else { //Dependency had no type (i.e. scalars with no strict typing)
-                    this.parsedSourceFile.addDependency(null, array[0]);
-                }
-            }
-
-            return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     private boolean dependencyIsImported(String s) {
